@@ -1,7 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { urlFor } from '../lib/client';
+import toast, { Toaster } from 'react-hot-toast';
+import axios from 'axios';
 
 const OrderBlock = ({ item, index }) => {
+  const [val, setVal] = useState('Received');
+  const options = ['Received', 'Processing', 'In Transit', 'Delivered'];
+
+  const onOptionChangeHandler = async (event) => {
+    try {
+      let data = {
+        status: event.target.value,
+        phone: item.user_phone,
+        id: item._id,
+      };
+      console.log('Data',data)
+      await axios({
+        method: 'post',
+        url: 'https://tejdhar-otp-service.vercel.app/auth/status',
+        data: data,
+      })
+        .then((res) => {
+          if (res.data[0]) {
+            toast.success(`Status changed to ${event.target.value}`);
+            setVal(event.target.value);
+            console.log('sent');
+          } else {
+            toast.error('Some error occured!');
+            console.log(res.data[1]);
+          }
+        })
+        .catch((error) => {
+          toast.error('Some error occured!');
+          console.log(error);
+        });
+    } catch (error) {}
+  };
   console.log('HERE', item);
   /* let d = new Date(item.datetime);
   let date_of_order = new Intl.DateTimeFormat('en-US', {
@@ -13,9 +47,26 @@ const OrderBlock = ({ item, index }) => {
     second: '2-digit',
   }).format(d); */
   return (
-    <div className='bg-gradient-to-r shadow-lg rounded-sm px-2 py-1 my-3'>
-      <p className='text-lg font-semibold'>Order: {index}</p>
-      <p className='font-semibold'>Date: {item.datetime}</p>
+    <div className='bg-gradient-to-r shadow-lg rounded-sm px-2 py-1 my-3 flex flex-col'>
+      <div className='flex w-full items-center justify-between'>
+        <div>
+          <p className='text-lg font-semibold'>Order: {index}</p>
+          <p className='font-semibold'>Date: {item.datetime}</p>
+        </div>
+        <div className='flex gap-x-2 items-center'>
+          <Toaster />
+          <p className='font-semibold text-lg'>Set Status : </p>
+          <select
+            onChange={onOptionChangeHandler}
+            className='border-[0.5px] border-gray-600 rounded-md px-2 py-1'
+          >
+            {options.map((option, index) => {
+              return <option key={index}>{option}</option>;
+            })}
+          </select>
+        </div>
+      </div>
+
       {item?.order.map((o, index) => (
         <>
           <div
