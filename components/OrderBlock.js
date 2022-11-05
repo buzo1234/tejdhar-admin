@@ -37,25 +37,19 @@ const OrderBlock = ({ item, index }) => {
     } catch (error) {}
   };
   console.log('HERE', item);
-  /* let d = new Date(item.datetime);
-  let date_of_order = new Intl.DateTimeFormat('en-US', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-  }).format(d); */
+  
   return (
-    <div className='bg-gradient-to-r shadow-lg rounded-sm px-2 py-1 my-3 flex flex-col'>
-      <div className='flex w-full items-center justify-between'>
+    <div className='shadow-md bg-white rounded-md px-2 py-1 my-3 flex flex-col '>
+      <div className='flex w-full items-center justify-between '>
         <div>
           <p className='text-lg font-semibold'>Order: {index}</p>
           <p className='font-semibold'>Date: {item.datetime}</p>
         </div>
-        <div className='flex gap-x-2 items-center'>
+        <div className='flex flex-col md:flex-row lg:flex-row xl:flex-row gap-x-2 items-center'>
           <p className='font-semibold text-lg'>Set Status : </p>
           <select
+            
+            defaultValue={item.status}
             onChange={onOptionChangeHandler}
             className='border-[0.5px] border-gray-600 rounded-md px-2 py-1'
           >
@@ -69,10 +63,10 @@ const OrderBlock = ({ item, index }) => {
       {item?.order.map((o, index) => (
         <>
           <div
-            className=' grid grid-cols-4 h-[150px] justify-center items-center my-2'
+            className=' grid grid-cols-4 h-[150px] justify-center items-center my-2 '
             key={index}
           >
-            <div className='flex w-full justify-center items-center'>
+            <div className='flex  w-full justify-center items-center'>
               <img
                 src={
                   o.productImage
@@ -83,22 +77,22 @@ const OrderBlock = ({ item, index }) => {
                 }
                 width={130}
                 height={130}
-                className='rounded-lg'
+                className='rounded-lg mr-2'
               />
             </div>
             <div>
-              <p className='font-semibold text-lg text-center'>{o.title}</p>
+              <p className='font-semibold text-sm md:text-lg lg:text-lg xl:text-lg text-center'>{o.title}</p>
               {o.colorVariant !== null ? (
-                <p className='font-semibold italic text-gray-600 text-md text-center'>
-                  Color Variant : {o.colorVariant}
+                <p className='font-semibold italic text-gray-600 text-xs md:text-md lg:text-md xl:text-md text-center'>
+                  Color Variant :<br className='md:hidden lg:hidden xl:hidden'/> {o.colorVariant}
                 </p>
               ) : null}
             </div>
-            <p className='font-semibold text-lg text-center'>
-              Price: &#x20B9;{o.defaultPrice}
+            <p className='font-semibold text-sm md:text-lg lg:text-lg xl:text-lg text-center'>
+              Price:<br className='md:hidden lg:hidden xl:hidden'/> &#x20B9;{o.defaultPrice}
             </p>
-            <p className='font-semibold text-lg text-center'>
-              Qty x {o.quantity}
+            <p className='font-semibold text-sm md:text-lg lg:text-lg xl:text-lg text-center'>
+              Qty <br className='md:hidden lg:hidden xl:hidden'/> x {o.quantity}
             </p>
           </div>
           {item.order.length > 1 && item.order.length !== index + 1 ? (

@@ -163,11 +163,11 @@ export default function Home() {
       </Transition>
     </Menu>
         </div>
-        <div className='col-span-4 p-4 overflow-y-auto hidden md:block lg:block xl:block'>
+        <div className='col-span-4 p-4 overflow-y-auto hidden md:block lg:block xl:block bg-[#f5f5f5]'>
           {showActionTab()}
         </div>
       </div>
-      <div className='col-span-4 p-4 overflow-y-auto md:hidden lg:hidden xl:hidden'>
+      <div className='col-span-4 p-4 bg-[#f5f5f5] overflow-y-auto md:hidden lg:hidden xl:hidden'>
         {showActionTab()}
       </div>
     </div>
