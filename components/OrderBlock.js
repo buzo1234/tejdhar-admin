@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { urlFor } from '../lib/client';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import axios from 'axios';
 
 const OrderBlock = ({ item, index }) => {
@@ -14,7 +14,7 @@ const OrderBlock = ({ item, index }) => {
         phone: item.user_phone,
         id: item._id,
       };
-      console.log('Data',data)
+      console.log('Data', data);
       await axios({
         method: 'post',
         url: 'https://tejdhar-otp-service.vercel.app/auth/status',
@@ -27,12 +27,12 @@ const OrderBlock = ({ item, index }) => {
             console.log('sent');
           } else {
             toast.error('Some error occured!');
-            console.log(res.data[1]);
+            console.log('error',res.data[1]);
           }
         })
         .catch((error) => {
           toast.error('Some error occured!');
-          console.log(error);
+          console.log('error',error);
         });
     } catch (error) {}
   };
@@ -54,7 +54,6 @@ const OrderBlock = ({ item, index }) => {
           <p className='font-semibold'>Date: {item.datetime}</p>
         </div>
         <div className='flex gap-x-2 items-center'>
-          <Toaster />
           <p className='font-semibold text-lg'>Set Status : </p>
           <select
             onChange={onOptionChangeHandler}
