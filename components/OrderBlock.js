@@ -24,15 +24,15 @@ const OrderBlock = ({ item, index }) => {
           if (res.data[0]) {
             toast.success(`Status changed to ${event.target.value}`);
             setVal(event.target.value);
-            console.log('sent');
+            console.log('sent', res.data[1], 'end');
           } else {
             toast.error('Some error occured!');
-            console.log('error',res.data[1]);
+            console.log('error', res.data[1]);
           }
         })
         .catch((error) => {
           toast.error('Some error occured!');
-          console.log('error',error);
+          console.log('error', error);
         });
     } catch (error) {}
   };
