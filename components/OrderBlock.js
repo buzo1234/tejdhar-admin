@@ -14,7 +14,6 @@ const OrderBlock = ({ item, index }) => {
         phone: item.user_phone,
         id: item._id,
       };
-      console.log('Data', data);
       await axios({
         method: 'post',
         url: 'https://tejdhar-otp-service.vercel.app/auth/status',
@@ -24,19 +23,15 @@ const OrderBlock = ({ item, index }) => {
           if (res.data[0]) {
             toast.success(`Status changed to ${event.target.value}`);
             setVal(event.target.value);
-            console.log('sent', res.data[1], 'end');
           } else {
             toast.error('Some error occured!');
-            console.log('error', res.data[1]);
           }
         })
         .catch((error) => {
           toast.error('Some error occured!');
-          console.log('error', error);
         });
     } catch (error) {}
   };
-  console.log('HERE', item);
   
   return (
     <div className='shadow-md bg-white rounded-md px-2 py-1 my-3 flex flex-col '>
