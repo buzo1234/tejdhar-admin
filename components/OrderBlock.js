@@ -87,10 +87,18 @@ const OrderBlock = ({ item, index }) => {
                   Color Variant :<br className='md:hidden lg:hidden xl:hidden'/> {o.colorVariant}
                 </p>
               ) : null}
+              {o.sizeVariant !== null && o.sizeVariant!==undefined ? (
+                <p className='font-semibold italic text-gray-600 text-xs md:text-md lg:text-md xl:text-md text-center'>
+                  Size Variant :<br className='md:hidden lg:hidden xl:hidden'/> {o.sizeVariant}
+                </p>
+              ) : null}
             </div>
-            <p className='font-semibold text-sm md:text-lg lg:text-lg xl:text-lg text-center'>
+            {o.variantPrice === undefined ? (<p className='font-semibold text-sm md:text-lg lg:text-lg xl:text-lg text-center'>
               Price:<br className='md:hidden lg:hidden xl:hidden'/> &#x20B9;{o.defaultPrice}
-            </p>
+            </p>): (<p className='font-semibold text-sm md:text-lg lg:text-lg xl:text-lg text-center'>
+              Price:<br className='md:hidden lg:hidden xl:hidden'/> &#x20B9;{o.variantPrice}
+            </p>) }
+            
             <p className='font-semibold text-sm md:text-lg lg:text-lg xl:text-lg text-center'>
               Qty <br className='md:hidden lg:hidden xl:hidden'/> x {o.quantity}
             </p>
