@@ -9,7 +9,7 @@ const ExcelExport = ({excelData, fileName}) => {
     const exportToExcel = async () => {
         if(fileName === 'Tejdharart_orders'){
 
-            const ws = XLSX.utils.json_to_sheet(excelData, {header: ["date","title", "colorVariant", "sizeVariant", "variantPrice", "custom", "quantity","name", "phone", "address", "status"], cellDates: true, dateNF:'dd/mm/yyyy'});
+            const ws = XLSX.utils.json_to_sheet(excelData, {header: ["date","title", "colorVariant", "sizeVariant","defaultPrice", "variantPrice", "custom", "quantity","name", "phone", "address", "status"], cellDates: true, dateNF:'dd/mm/yyyy'});
             const wb = {Sheets : {'data':ws}, SheetNames: ['data']};
         const excelBuffer = XLSX.write(wb, {bookType:'xlsx', type:'array'});
         const data = new Blob([excelBuffer], {type: fileType});

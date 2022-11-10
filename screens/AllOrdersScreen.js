@@ -54,7 +54,6 @@ const AllOrdersScreen = () => {
             delete obj._id;
             delete obj.colorVariants;
             delete obj.sizeVariants;
-            delete obj.defaultPrice;
             delete obj._type;
             sin_orders.push(obj);
           }
