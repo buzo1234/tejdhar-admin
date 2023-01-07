@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AllOrdersScreen from '../screens/AllOrdersScreen';
 import AllUsersScreen from '../screens/AllUsersScreen';
 import DashboardScreen from '../screens/DashboardScreen';
@@ -8,16 +8,20 @@ import UpdateProductsScreen from '../screens/UpdateProductsScreen';
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Fragment } from 'react'
+import { client } from '../lib/client';
 
-export default function Home() {
+
+export default function Home({ products }) {
   const [action, setAction] = useState(0);
+  
+
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
   function showActionTab() {
     console.log('run');
     if (action === 0) {
-      return <DashboardScreen />;
+      return <DashboardScreen data={products}/>;
     } else if (action === 1) {
       return <UpdateProductsScreen />;
     } else if (action === 2) {
@@ -173,3 +177,12 @@ export default function Home() {
     </div>
   );
 }
+
+export const getServerSideProps = async () => {
+  const query = "*[_type == 'product' && !(_id in path('drafts.**'))]";
+  const products = await client.fetch(query);
+
+  return {
+    props: { products },
+  };
+};
