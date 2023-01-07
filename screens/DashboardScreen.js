@@ -9,7 +9,7 @@ const DashboardScreen = ({data}) => {
       let product = {"name" : data[i].title, "inStock" : data[i].InStock}
 
       setProd(arr => [...arr, product]);
-      console.log(data[i])
+     
     }
   }, [data])
 
