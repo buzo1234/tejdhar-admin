@@ -19,7 +19,6 @@ const AllOrdersScreen = () => {
     setsall(arr[1]);
   }, [orders]);
 
-
   function arrangeOrders(orders) {
     let all_orders = [];
     let sin_orders = [];
@@ -34,14 +33,14 @@ const AllOrdersScreen = () => {
           let address = orders[i].orders[j].address;
           let date = orders[i].orders[j].datetime;
           let status = orders[i].orders[j].status;
-          
-          for(let k=0; k<ord.length; k++){
+
+          for (let k = 0; k < ord.length; k++) {
             let obj = Object.assign({}, ord[k]);
-          
+
             obj.name = name;
             obj.phone = phone;
             obj.address = address;
-            obj.date = date; 
+            obj.date = date;
             obj.status = status;
             delete obj.id_main;
             delete obj.slug;
@@ -58,13 +57,15 @@ const AllOrdersScreen = () => {
             sin_orders.push(obj);
           }
           sin_orders = [...sin_orders].sort((a, b) =>
-          new Date(a.date) > new Date(b.date) ? -1 : 1,
-        );
+            new Date(a.date) > new Date(b.date) ? -1 : 1
+          );
         }
       }
     }
 
-    all_orders.sort((a, b) => (new Date(a.datetime) > new Date(b.datetime) ? -1 : 1));
+    all_orders.sort((a, b) =>
+      new Date(a.datetime) > new Date(b.datetime) ? -1 : 1
+    );
     return [all_orders, sin_orders];
   }
 
@@ -77,7 +78,6 @@ const AllOrdersScreen = () => {
       }).then((response) => {
         if (response.data[0]) {
           setOrders(response.data[1]);
-          
         } else {
           console.log(error);
         }
@@ -91,12 +91,12 @@ const AllOrdersScreen = () => {
   return (
     <div>
       <p className=' font-bold text-2xl mb-10'>All Orders</p>
-      <ExcelExport excelData={sall} fileName={'Tejdharart_orders'}/>
+      <ExcelExport excelData={sall} fileName={'Tejdharart_orders'} />
       {loading ? (
         <p>Loading...</p>
       ) : (
         all.map((item, i) => {
-          return <OrderBlock key={i} item={item} index={all.length - i} />;
+          return <OrderBlock key={i} item={item} index={all.length} />;
         })
       )}
     </div>
