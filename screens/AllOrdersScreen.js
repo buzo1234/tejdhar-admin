@@ -96,7 +96,7 @@ const AllOrdersScreen = () => {
         <p>Loading...</p>
       ) : (
         all.map((item, i) => {
-          return <OrderBlock key={i} item={item} index={i + 1} />;
+          return <OrderBlock key={i} item={item} index={all.length - i} />;
         })
       )}
     </div>
