@@ -64,7 +64,7 @@ const AllOrdersScreen = () => {
     }
 
     all_orders.sort((a, b) =>
-      new Date(a.datetime) > new Date(b.datetime) ? -1 : 1
+      new Date(a.datetime) > new Date(b.datetime) ? 1 : -1
     );
     return [all_orders, sin_orders];
   }
@@ -96,7 +96,7 @@ const AllOrdersScreen = () => {
         <p>Loading...</p>
       ) : (
         all.map((item, i) => {
-          return <OrderBlock key={i} item={item} index={i} />;
+          return <OrderBlock key={i} item={item} index={i + 1} />;
         })
       )}
     </div>
