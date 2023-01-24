@@ -57,15 +57,34 @@ const AllOrdersScreen = () => {
             sin_orders.push(obj);
           }
           sin_orders = [...sin_orders].sort((a, b) =>
-            new Date(a.date) > new Date(b.date) ? -1 : 1
+            new Date(a.date) > new Date(b.date) ? 1 : -1
           );
         }
       }
     }
 
-    all_orders.sort((a, b) =>
-      new Date(a.datetime) > new Date(b.datetime) ? 1 : -1
+    /* all_orders.sort((a, b) =>
+      new Date(a.datetime) > new Date(b.datetime)
+        ? 1
+        : new Date(b.datetime) > new Date(a.datetime)
+        ? -1
+        : 0
     );
+ */
+
+    for (var i = 0; i < all_orders.length; i++) {
+      for (var j = 0; j < all_orders.length - i - 1; j++) {
+        var f = new Date(all_orders[j].timeStamp).getTime();
+        var s = new Date(all_orders[j + 1].timeStamp).getTime();
+
+        if (f < s) {
+          var temp = all_orders[j];
+          all_orders[j] = all_orders[j + 1];
+          all_orders[j + 1] = temp;
+        }
+      }
+    }
+
     return [all_orders, sin_orders];
   }
 
